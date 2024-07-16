@@ -1,0 +1,29 @@
+name: im4nis-workshop-env
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - pandas
+  - geopandas
+  - contextily
+  - numpy
+  - matplotlib
+  - ipympl
+  - scikit-learn
+  - scipy
+  - umap-learn
+  - sympy
+  - joblib
+  - requests
+  - jupyter
+  - jupyterlab
+  # some development tools, optional
+  # - jupyterlab-spellchecker
+  # - jupyterlab_code_formatter
+  # - black
+  - pip
+  - git
+  - pip:
+      - git+https://github.com/morganjwilliams/pyrolite.git@develop#egg=pyrolite # latest develop release
