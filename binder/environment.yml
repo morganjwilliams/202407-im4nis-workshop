@@ -12,7 +12,7 @@ dependencies:
   - numpy
   - matplotlib
   - ipympl
-  - scikit-learn==1.1.3
+  - scikit-learn
   - scipy
   - umap-learn
   - sympy
@@ -20,11 +20,4 @@ dependencies:
   - requests
   - jupyter
   - jupyterlab
-  # some development tools, optional
-  # - jupyterlab-spellchecker
-  # - jupyterlab_code_formatter
-  # - black
-  - pip
-  - git
-  - pip:
-      - git+https://github.com/morganjwilliams/pyrolite.git@develop#egg=pyrolite # latest develop release
+  - pyrolite
