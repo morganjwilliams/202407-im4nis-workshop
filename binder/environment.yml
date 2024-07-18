@@ -1,3 +1,5 @@
+# conda env create -f environment.yml
+
 name: im4nis-workshop-env
 
 channels:
@@ -21,3 +23,4 @@ dependencies:
   - jupyter
   - jupyterlab
   - pyrolite
+  - openpyxl
