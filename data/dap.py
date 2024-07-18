@@ -4,7 +4,26 @@ import urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 
-from tqdm.auto import tqdm
+try:
+    from tqdm.auto import tqdm
+except ImportError:
+
+    class tqdm:
+        def __init__(self, iter):
+            self.iter = iter
+
+        def __iter__(self):
+            self.ix = 0
+            return self
+
+        def __next__(self):
+            self.ix += 1
+            if self.ix < len(self.iter):
+                return self.iter[self.ix]
+            raise StopIteration
+
+        def set_description(self, _):
+            pass
 
 
 def download_from_DAP_links(
