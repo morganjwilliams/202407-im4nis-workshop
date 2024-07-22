@@ -20,11 +20,14 @@ jobs:
         python-version: [3.9, "3.10", "3.11"]
     runs-on: ${{ matrix.os }}
     steps:
+      - name: clone-env-repo
+        run: |
+          git clone https://github.com/morganjwilliams/im4nis-workshop-env.git
       - uses: actions/checkout@v4
       - name: setup-micromamba
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: ./binder/environment.yml
+          environment-file: ./im4nis-workshop-env/binder/environment.yml
           cache-downloads: true
           # cache-environment: true
           create-args: >-
