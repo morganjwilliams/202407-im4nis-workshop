@@ -90,7 +90,9 @@ def download_from_DAP_links(
                 collapse_metadata and dirparts[0] == "metadata"
             ):
                 dirparts = dirparts[1:]
-            download_items[os.path.join(*keyparts).replace(" ", "").replace("%20", "")] = {
+            download_items[
+                os.path.join(*keyparts).replace(" ", "").replace("%20", "")
+            ] = {
                 "url": url,
                 "name": parts[-1].replace(" ", "").replace("%20", ""),
                 "dir": (
@@ -102,7 +104,6 @@ def download_from_DAP_links(
     if fltr is not None:
         download_items = {k: d for k, d in download_items.items() if re.search(fltr, k)}
 
-    
     with tqdm(
         total=len(download_items),
         position=0,
@@ -127,7 +128,7 @@ def download_from_DAP_links(
             d["path"] = tgt
             progress_bar.update(1)
 
-        Parallel(n_jobs=-1, backend="threading")(
+        Parallel(n_jobs=8, backend="threading")(
             delayed(_get_item)(k, d) for k, d in download_items.items()
         )
 
