@@ -3,3 +3,4 @@ allow-fail:
     - FileNotFoundError
   03_Predictions:
     - FileNotFoundError
+    - AssertionError

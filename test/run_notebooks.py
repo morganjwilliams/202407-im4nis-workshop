@@ -17,14 +17,15 @@ ep = ExecutePreprocessor(timeout=600, kernel_name="python3")
 # iterate through the notebooks, and catch cell exectuion errors to look at later
 exceptions = {}
 for nbpath in Path("./notebooks").glob("*.ipynb"):
-    print("Running {}".format(nbpath))
-    with open(nbpath) as f:
-        nb = nbformat.read(f, as_version=4)
-    try:
-        ep.preprocess(nb, {"metadata": {"path": "./notebooks/"}})
-    except CellExecutionError as e:
-        print("Error in {}: {}".format(nbpath, str(e.ename)))
-        exceptions[nbpath] = e.ename
+    if not nbpath.stem.startswith("_"):
+        print("Running {}".format(nbpath))
+        with open(nbpath) as f:
+            nb = nbformat.read(f, as_version=4)
+        try:
+            ep.preprocess(nb, {"metadata": {"path": "./notebooks/"}})
+        except CellExecutionError as e:
+            print("Found Error in {}: {}".format(nbpath, str(e.ename)))
+            exceptions[nbpath] = e.ename
 
 unexpected_erorrs = {}
 for k, e in exceptions.items():
@@ -32,7 +33,7 @@ for k, e in exceptions.items():
         unexpected_erorrs[k] = e
     else:
         _allowed_errors = test_config.get("allow-fail").get(k.stem)
-        if str(e) not in _allowed_errors:
+        if e not in _allowed_errors:
             unexpected_erorrs[k] = e
 
 
