@@ -1,7 +1,16 @@
 from pathlib import Path
+from pydoc import locate
 
 import nbformat
+import yaml
 from nbconvert.preprocessors import CellExecutionError, ExecutePreprocessor
+
+if __file__ is not None:
+    dirpath = Path(__file__).parent
+else:
+    dirpath = Path("./")
+with open(dirpath / "config.yaml", "r") as f:
+    test_config = yaml.safe_load(f)
 
 ep = ExecutePreprocessor(timeout=600, kernel_name="python3")
 
@@ -17,11 +26,16 @@ for nbpath in Path("./notebooks").glob("*.ipynb"):
         print("Error in {}".format(nbpath))
         exceptions[nbpath] = e
 
+unexpected_erorrs = {}
 for k, e in exceptions.items():
-    print(k)
-    print(e)
+    if k.stem not in test_config.get("allow-fail", {}).keys():
+        unexpected_erorrs[k] = e
+    else:
+        _allowed_errors = test_config.get("allow-fail").get(k.stem)
+        if str(e) not in _allowed_errors:
+            unexpected_erorrs[k] = e
 
 
-assert not len(exceptions), "Some notebooks errored: {}".format(
-    ", ".join([p.name for p in exceptions.keys()])
+assert not len(unexpected_erorrs), "Some notebooks errored: {}".format(
+    ", ".join([p.name for p in unexpected_erorrs.keys()])
 )

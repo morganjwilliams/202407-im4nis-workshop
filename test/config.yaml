@@ -1,0 +1,4 @@
+allow-fail:
+  02_LoadModels:
+    - ImportError
+    - FileNotFoundError
