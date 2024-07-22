@@ -1,0 +1,6 @@
+allow-fail:
+  02_LoadModels:
+    - FileNotFoundError
+  03_Predictions:
+    - FileNotFoundError
+    - AssertionError

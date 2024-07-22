@@ -1,0 +1,27 @@
+# conda env create -f environment.yml
+
+name: im4nis-workshop-env
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python>=3.9, <=3.11
+  - pandas
+  - geopandas
+  - contextily
+  - numpy
+  - matplotlib
+  - ipympl
+  - scikit-learn
+  - scipy
+  - umap-learn
+  - sympy
+  - joblib
+  - requests
+  - jupyter
+  - jupyterlab
+  - pyrolite
+  - openpyxl
+  - dtreeviz
