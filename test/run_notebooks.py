@@ -11,6 +11,7 @@ else:
     dirpath = Path("./")
 with open(dirpath / "config.yaml", "r") as f:
     test_config = yaml.safe_load(f)
+    print(test_config)
 
 ep = ExecutePreprocessor(timeout=600, kernel_name="python3")
 
@@ -23,8 +24,8 @@ for nbpath in Path("./notebooks").glob("*.ipynb"):
     try:
         ep.preprocess(nb, {"metadata": {"path": "./notebooks/"}})
     except CellExecutionError as e:
-        print("Error in {}".format(nbpath))
-        exceptions[nbpath] = e
+        print("Error in {}: {}".format(nbpath, str(e.ename)))
+        exceptions[nbpath] = e.ename
 
 unexpected_erorrs = {}
 for k, e in exceptions.items():
