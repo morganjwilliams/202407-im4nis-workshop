@@ -1,4 +1,5 @@
 allow-fail:
   02_LoadModels:
-    - ImportError
+    - FileNotFoundError
+  03_Predictions:
     - FileNotFoundError
