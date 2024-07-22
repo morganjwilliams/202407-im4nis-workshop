@@ -99,7 +99,7 @@ def download_from_DAP_links(
     if fltr is not None:
         items = {k: d for k, d in items.items() if re.search(fltr, k)}
 
-    pbar = tqdm(items.items())
+    pbar = tqdm(list(items.items()))  
     for k, d in pbar:
         tgt = output_dir / Path(d["dir"]) / d["name"]
         pbar.set_description("Downloading: {}".format(tgt.name))
