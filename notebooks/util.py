@@ -59,9 +59,7 @@ def markersize_mapper(arr, abs=False, minsize=5, maxsize=100):
     return map_markersizes
 
 
-def plot_sample_predictions(
-    predictions_by_sample,
-):
+def plot_sample_predictions(predictions_by_sample):
     fig, ax = plt.subplots(1, figsize=(8, 8))
 
     AUS_STATES[AUS_STATES.intersects(predictions_by_sample.unary_union)].plot(
@@ -81,7 +79,7 @@ def plot_sample_predictions(
     ax.grid(alpha=0.25)
 
     ax.set(aspect="equal", ylabel="Latitude", xlabel="Longitude")
-    plt.colorbar(
+    fig.colorbar(
         mappable_from_values(predictions_by_sample["prop_min"], cmap="cividis"),
         ax=ax,
         label="Proportion of Mineralized Grains",
@@ -94,7 +92,7 @@ def plot_sample_predictions(
             np.log(count_legend)
         )
     ]
-    _leg = plt.legend(hdls, count_legend, bbox_to_anchor=(0, 1), title="Spinel Grains")
+    _leg = ax.legend(hdls, count_legend, bbox_to_anchor=(0, 1), title="Spinel Grains")
     return fig, ax
 
 
