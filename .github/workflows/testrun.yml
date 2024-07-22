@@ -20,14 +20,14 @@ jobs:
         python-version: [3.9, "3.10", "3.11"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
-      - name: provision-with-micromamba
-        uses: mamba-org/provision-with-micromamba@v14
+      - uses: actions/checkout@v4
+      - name: setup-micromamba
+        uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: ./binder/environment.yml
           cache-downloads: true
-          # cache-env: true
-          extra-specs: |
+          # cache-environment: true
+          create-args: >-
             python=${{ matrix.python-version }}
       - name: Run notebooks
         run: |
