@@ -20,11 +20,17 @@ jobs:
         python-version: [3.9, "3.10", "3.11"]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Workflow Repository
+        uses: actions/checkout@v4
+      - name: Checkout Environment Repository
+        uses: actions/checkout@v4
+        with:
+          repository: morganjwilliams/im4nis-workshop-env
+          path: workshop-env
       - name: setup-micromamba
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: ./binder/environment.yml
+          environment-file: workshop-env/binder/environment.yml
           cache-downloads: true
           # cache-environment: true
           create-args: >-
