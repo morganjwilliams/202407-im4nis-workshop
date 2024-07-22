@@ -11,7 +11,6 @@ else:
     dirpath = Path("./")
 with open(dirpath / "config.yaml", "r") as f:
     test_config = yaml.safe_load(f)
-    print(test_config)
 
 ep = ExecutePreprocessor(timeout=600, kernel_name="python3")
 
