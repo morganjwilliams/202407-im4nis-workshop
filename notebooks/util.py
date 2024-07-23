@@ -130,4 +130,5 @@ def plot_permutation_importances(
 
     ax = importances.plot.box(vert=False, whis=10, ax=ax, **{**default_style, **kwargs})
     ax.axvline(x=0, color="k", linestyle="--")
+    ax.set(xlabel='Feature Permutation Importance')
     return ax
